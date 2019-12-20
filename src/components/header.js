@@ -32,10 +32,22 @@ export class WorkshopFeHeader extends LitElement {
         flex-grow: 1;
       }
 
-      header > p {
-        color: #00a667;
+      header > ul {
+        color: red;
         margin-right: 40px;
         font-size: 20px;
+        animation: pulse 1s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          opacity: 0%;
+        }
+        50% {
+          opacity: 100%;
+        }
+        100% {
+          opacity: 0%;
+        }
       }
     `;
   }
@@ -45,7 +57,9 @@ export class WorkshopFeHeader extends LitElement {
       <header>
         <img src="/src/assets/bear.png" />
         <h1>Frontend Workshop - Chat</h1>
-        <p>arcady.nl/jobs</p>
+        <ul>
+          <li>Live</li>
+        </ul>
       </header>
     `;
   }

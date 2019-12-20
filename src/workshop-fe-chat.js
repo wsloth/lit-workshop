@@ -2,6 +2,7 @@ import { LitElement, html, css } from 'lit-element';
 
 import './components/header.js';
 import './components/footer.js';
+import './components/chatbox.js';
 
 export class WorkshopFeChat extends LitElement {
   static get properties() {
@@ -16,7 +17,6 @@ export class WorkshopFeChat extends LitElement {
         height: 100vh;
         display: flex;
         flex-direction: column;
-        align-items: center;
         justify-content: flex-start;
         font-size: calc(10px + 2vmin);
         color: #1a2b42;
@@ -24,7 +24,9 @@ export class WorkshopFeChat extends LitElement {
       }
 
       main {
+        height: calc(100vh - 130px);
         flex-grow: 1;
+        overflow: hidden;
       }
 
       .app-footer {
@@ -61,14 +63,7 @@ export class WorkshopFeChat extends LitElement {
       <workshop-fe-header></workshop-fe-header>
 
       <main>
-        ${messages
-          ? messages.map(
-              m =>
-                html`
-                  <p>${m.username} - ${m.message}</p>
-                `,
-            )
-          : ''}
+        <workshop-fe-chatbox .messages=${messages}></workshop-fe-chatbox>
       </main>
 
       <workshop-fe-footer></workshop-fe-footer>
