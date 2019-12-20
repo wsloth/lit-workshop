@@ -1,6 +1,13 @@
+/* eslint-disable no-undef */
 import { LitElement, html, css } from 'lit-element';
 
 export class WorkshopFeFooter extends LitElement {
+  static get properties() {
+    return {
+      chatInputVisible: Boolean,
+    };
+  }
+
   static get styles() {
     return css`
       :host {
@@ -22,6 +29,7 @@ export class WorkshopFeFooter extends LitElement {
         display: inline-block;
         height: 20px;
         margin-left: 8px;
+        cursor: pointer;
       }
 
       footer > p {
@@ -29,16 +37,76 @@ export class WorkshopFeFooter extends LitElement {
         display: inline;
         font-size: 20px;
       }
+
+      section {
+        display: flex;
+      }
+      section input {
+        width: 100%;
+        padding: 15px;
+        font-size: 18px;
+      }
+      section input:first-child {
+        width: 30%;
+      }
+      section button {
+        width: 10%;
+        font-size: 15px;
+        background-color: #00a667;
+        color: white;
+      }
     `;
+  }
+
+  constructor() {
+    super();
+    this.chatInputVisible = false;
   }
 
   render() {
     return html`
+      ${this.chatInputVisible
+        ? html`
+            <section>
+              <input id="username" type="text" placeholder="Username" />
+              <input
+                id="message"
+                @keyup=${this._onKeyUp}
+                type="text"
+                placeholder="Type a message..."
+              />
+              <button @click=${this._sendMessage}>Send</button>
+            </section>
+          `
+        : ''}
+
       <footer>
         <p>Powered by</p>
-        <img src="/src/assets/logo.png" />
+        <img @click=${this._toggleChatInputVisible} src="/src/assets/logo.png" />
       </footer>
     `;
+  }
+
+  _toggleChatInputVisible() {
+    this.chatInputVisible = !this.chatInputVisible;
+  }
+
+  _onKeyUp(e) {
+    // Check if the user pressed "Enter"
+    if (e.keyCode === 13) {
+      this._sendMessage();
+    }
+  }
+
+  _sendMessage() {
+    const username = this.shadowRoot.querySelector('#username').value;
+    const messageInput = this.shadowRoot.querySelector('#message');
+
+    if (username && messageInput.value) {
+      const db = firebase.firestore();
+      db.collection('chat').add({ username, message: messageInput.value });
+      messageInput.value = '';
+    }
   }
 }
 
