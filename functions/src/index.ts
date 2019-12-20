@@ -3,6 +3,7 @@ import * as admin from 'firebase-admin';
 admin.initializeApp(functions.config().firebase);
 
 import * as express from 'express';
+import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 
 const app = express();
@@ -16,6 +17,9 @@ interface ChatMessage {
 // Automatically allow cross-origin requests
 app.use(cors({ origin: true }));
 
+// Parse the POST body
+app.use(bodyParser);
+
 // build multiple CRUD interfaces:
 app.get('/messages', async (req, res) => {
   const db = admin.firestore();
@@ -23,7 +27,13 @@ app.get('/messages', async (req, res) => {
   // Get all the chat messages from the database and map them to an array
   const chatQuerySnapshots = await db.collection('chat').get();
   const chatMessages: ChatMessage[] = [];
-  chatQuerySnapshots.forEach(doc => chatMessages.push(doc.data() as ChatMessage));
+  chatQuerySnapshots.forEach(doc =>
+    chatMessages.push({
+      username: doc.data().username,
+      message: doc.data().message,
+      timestamp: doc.data().timestamp.toDate(),
+    }),
+  );
 
   res.send(chatMessages);
 });
@@ -32,7 +42,7 @@ app.post('/messages', async (req, res) => {
   // Validate if the message body is OK
   const body: ChatMessage = req.body;
   if (!body.username || !body.message) {
-    res.send().status(400);
+    res.status(400).send('Bad Request');
     return;
   }
 
@@ -43,7 +53,7 @@ app.post('/messages', async (req, res) => {
     message: body.message,
     timestamp: new Date(),
   });
-  res.send().status(200);
+  res.status(200).send('OK');
 });
 
 // Expose Express API as a single Cloud Function:
