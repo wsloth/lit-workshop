@@ -29,6 +29,10 @@ export class WorkshopFeChatBox extends LitElement {
         margin-top: 10px;
       }
 
+      .chat-entry .username .timestamp {
+        font-size: 20px;
+      }
+
       .chat-entry .message {
         margin: 0;
         font-size: 25px;
@@ -46,7 +50,9 @@ export class WorkshopFeChatBox extends LitElement {
               m =>
                 html`
                   <div class="chat-entry">
-                    <p class="username">${m.username}</p>
+                    <p class="username">
+                      ${m.username} ${this._formatTimestamp(m)}
+                    </p>
                     <p class="message">${m.message}</p>
                   </div>
                 `,
@@ -54,6 +60,15 @@ export class WorkshopFeChatBox extends LitElement {
           : ''}
       </div>
     `;
+  }
+
+  _formatTimestamp(message) {
+    if (message.timestamp) {
+      return html`
+        <span class="timestamp">${message.timestamp.toLocaleTimeString()}</span>
+      `;
+    }
+    return '';
   }
 }
 

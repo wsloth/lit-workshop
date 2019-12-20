@@ -49,6 +49,12 @@ export class WorkshopFeHeader extends LitElement {
           opacity: 0%;
         }
       }
+
+      @media (max-width: 600px) {
+        h1 {
+          opacity: 0;
+        }
+      }
     `;
   }
 

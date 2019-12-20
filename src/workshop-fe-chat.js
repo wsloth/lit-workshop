@@ -50,8 +50,16 @@ export class WorkshopFeChat extends LitElement {
     // eslint-disable-next-line no-undef
     const db = firebase.firestore();
     db.collection('chat').onSnapshot(snapshot => {
-      this.messages = [];
-      snapshot.docs.forEach(d => this.messages.push(d.data()));
+      const messages = [];
+      snapshot.docs.forEach(d => {
+        const data = d.data();
+        messages.push({
+          username: data.username,
+          message: data.message,
+          timestamp: data.timestamp ? new Date(data.timestamp.seconds * 1000) : null,
+        });
+        this.messages = messages.sort((a, b) => b.timestamp - a.timestamp);
+      });
       this.requestUpdate();
     });
   }

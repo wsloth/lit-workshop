@@ -104,7 +104,11 @@ export class WorkshopFeFooter extends LitElement {
 
     if (username && messageInput.value) {
       const db = firebase.firestore();
-      db.collection('chat').add({ username, message: messageInput.value });
+      db.collection('chat').add({
+        username,
+        message: messageInput.value,
+        timestamp: new Date(),
+      });
       messageInput.value = '';
     }
   }
