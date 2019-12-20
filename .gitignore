@@ -18,3 +18,7 @@
 # build
 /_site/
 /dist/
+
+
+.firebase
+firebase-debug.log
