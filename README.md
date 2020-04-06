@@ -7,6 +7,12 @@ When people add new messages to the firestore, they are automatically shown "cha
 
 ![Preview](/docs/app-screenshot.png "Preview")
 
+## How to host this workshop
+
+I recommend setting up a [Stackblitz](https://stackblitz.com/) environment [like this](https://stackblitz.com/edit/fe-workshop-chat?file=src/app.js) to give some pointers on how to get started.
+
+The workshop host can have the application open on their computer and walk around help the attendees with their questions and problems.
+
 ## Setup
 
 #### Setting up your Firestore
