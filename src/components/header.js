@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit-element';
+import { getFullSizeLogo } from '../utils/logo-utils.js';
 
 export class WorkshopFeHeader extends LitElement {
   static get styles() {
@@ -61,7 +62,7 @@ export class WorkshopFeHeader extends LitElement {
   render() {
     return html`
       <header>
-        <img src="/src/assets/bear.png" />
+        <img src=${getFullSizeLogo()} />
         <h1>Frontend Workshop - Chat</h1>
         <ul>
           <li>Live</li>

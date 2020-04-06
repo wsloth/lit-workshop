@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { LitElement, html, css } from 'lit-element';
 
 export class WorkshopFeChatBox extends LitElement {

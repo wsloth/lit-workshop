@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import { LitElement, html, css } from 'lit-element';
+import { getSmallSizeLogo } from '../utils/logo-utils.js';
 
 export class WorkshopFeFooter extends LitElement {
   static get properties() {
@@ -82,7 +83,7 @@ export class WorkshopFeFooter extends LitElement {
 
       <footer>
         <p>Powered by</p>
-        <img @click=${this._toggleChatInputVisible} src="/src/assets/logo.png" />
+        <img @click=${this._toggleChatInputVisible} src=${getSmallSizeLogo()} />
       </footer>
     `;
   }
