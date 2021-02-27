@@ -3,6 +3,8 @@ Simple central system for a workshop where developers will create a tiny fronten
 
 View the app over here: https://workshop-fe-chat.firebaseapp.com/
 
+Workshop attendees can get started with a blank LitElement application over here: https://webcomponents.dev/edit/oqRYO91ipgpbJH4EECfI/src/index.js
+
 When people add new messages to the firestore, they are automatically shown "chatbox-style" in the application.
 
 ![Preview](/docs/app-screenshot.png "Preview")
