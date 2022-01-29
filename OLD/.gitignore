@@ -18,7 +18,7 @@
 # build
 /_site/
 /dist/
-/out-tsc/
 
-storybook-static
-custom-elements.json
+
+.firebase
+firebase-debug.log
