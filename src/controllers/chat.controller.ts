@@ -1,29 +1,57 @@
-// import { ReactiveController, ReactiveControllerHost } from 'lit';
+import { ReactiveController, ReactiveControllerHost } from 'lit';
+import { FirebaseApp, initializeApp } from 'firebase/app';
+import {
+  Firestore,
+  getFirestore,
+  collection,
+  onSnapshot,
+  Unsubscribe,
+} from 'firebase/firestore';
 
-// export class ClockController implements ReactiveController {
-//   host: ReactiveControllerHost;
+import { Message } from '../models/message.model.js';
 
-//   value = new Date();
-//   timeout: number;
-//   private _timerID?: number;
+export class ChatController implements ReactiveController {
+  private host: ReactiveControllerHost;
+  private app!: FirebaseApp;
+  private db!: Firestore;
+  private subscription!: Unsubscribe;
 
-//   constructor(host: ReactiveControllerHost, timeout = 1000) {
-//     (this.host = host).addController(this);
-//     this.timeout = timeout;
-//   }
+  public messages: Message[] = [];
 
-//   hostConnected() {
-//     // Start a timer when the host is connected
-//     this._timerID = setInterval(() => {
-//       this.value = new Date();
-//       // Update the host with new value
-//       this.host.requestUpdate();
-//     }, this.timeout);
-//   }
+  constructor(host: ReactiveControllerHost) {
+    this.host = host;
+    this.host.addController(this);
+  }
 
-//   hostDisconnected() {
-//     // Clear the timer when the host is disconnected
-//     clearInterval(this._timerID);
-//     this._timerID = undefined;
-//   }
-// }
+  hostConnected() {
+    const firebaseConfig = {};
+    this.app = initializeApp(firebaseConfig);
+    this.db = getFirestore(this.app);
+
+    this.subscription = onSnapshot(collection(this.db, 'chat'), snapshot => {
+      const messages: Message[] = [];
+
+      snapshot.docs.forEach(d => {
+        const data = d.data();
+        messages.push({
+          username: data.username,
+          message: data.message,
+          timestamp: data.timestamp?.seconds
+            ? new Date(data.timestamp.seconds * 1000)
+            : new Date(1970, 0, 1),
+        });
+
+        this.messages = messages.sort(
+          (a, b) =>
+            b.timestamp.getMilliseconds() - a.timestamp.getMilliseconds()
+        );
+      });
+
+      this.host.requestUpdate();
+    });
+  }
+
+  hostDisconnected() {
+    this.subscription();
+  }
+}

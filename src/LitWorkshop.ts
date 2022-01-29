@@ -1,12 +1,13 @@
 import { LitElement, html, css } from 'lit';
-import { property } from 'lit/decorators.js';
+
+import { ChatController } from './controllers/chat.controller.js';
 
 import './components/header.js';
 import './components/chatbox.js';
 import './components/footer.js';
 
 export class LitWorkshop extends LitElement {
-  @property({ type: String }) title = 'My app';
+  private controller = new ChatController(this);
 
   static styles = css`
     :host {
@@ -27,14 +28,13 @@ export class LitWorkshop extends LitElement {
   `;
 
   render() {
-    const messages = <any[]>[]; // TODO: Get from controller
+    const { messages } = this.controller;
+
     return html`
       <lit-header></lit-header>
-
       <main>
         <lit-chatbox .messages=${messages}></lit-chatbox>
       </main>
-
       <lit-footer></lit-footer>
     `;
   }
