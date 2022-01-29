@@ -16,7 +16,7 @@ export class LitWorkshop extends LitElement {
       flex-direction: column;
       justify-content: flex-start;
       font-size: calc(10px + 2vmin);
-      color: #1a2b42;
+      color: #f0f0f0;
       margin: 0 auto;
     }
 
@@ -35,7 +35,11 @@ export class LitWorkshop extends LitElement {
       <main>
         <lit-chatbox .messages=${messages}></lit-chatbox>
       </main>
-      <lit-footer></lit-footer>
+      <lit-footer @send-message=${this._onSendMessage}></lit-footer>
     `;
+  }
+
+  _onSendMessage(event: CustomEvent) {
+    this.controller.sendMessage(event.detail.username, event.detail.message);
   }
 }

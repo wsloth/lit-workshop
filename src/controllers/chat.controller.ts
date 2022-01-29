@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { ReactiveController, ReactiveControllerHost } from 'lit';
 import { FirebaseApp, initializeApp } from 'firebase/app';
 import {
@@ -6,6 +7,7 @@ import {
   collection,
   onSnapshot,
   Unsubscribe,
+  addDoc,
 } from 'firebase/firestore';
 
 import { Message } from '../models/message.model.js';
@@ -42,8 +44,7 @@ export class ChatController implements ReactiveController {
         });
 
         this.messages = messages.sort(
-          (a, b) =>
-            b.timestamp.getMilliseconds() - a.timestamp.getMilliseconds()
+          (a: any, b: any) => b.timestamp - a.timestamp
         );
       });
 
@@ -53,5 +54,20 @@ export class ChatController implements ReactiveController {
 
   hostDisconnected() {
     this.subscription();
+  }
+
+  async sendMessage(username: string, message: string) {
+    const messageObject = {
+      username,
+      message,
+      timestamp: new Date(),
+    };
+    if (!messageObject.username || !messageObject.message) {
+      console.error('Invalid message received', messageObject);
+    }
+
+    await addDoc(collection(this.db, 'chat'), { ...messageObject });
+
+    console.info('Message sent', messageObject);
   }
 }

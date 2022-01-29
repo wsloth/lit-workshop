@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { property } from 'lit/decorators.js';
+import { map } from 'lit/directives/map.js';
 import { Message } from '../models/message.model.js';
 
 export class LitChatbox extends LitElement {
@@ -39,21 +40,16 @@ export class LitChatbox extends LitElement {
 
   render() {
     const { messages } = this;
+    console.log('Rerendering', messages);
     return html`
       <div class="chatbox">
-        ${messages
-          ? messages.map(
-              m =>
-                html`
-                  <div class="chat-entry">
-                    <p class="username">
-                      ${m.username} ${this._formatTimestamp(m)}
-                    </p>
-                    <p class="message">${m.message}</p>
-                  </div>
-                `
-            )
-          : ''}
+        ${map(
+          messages,
+          m => html` <div class="chat-entry">
+            <p class="username">${m.username} ${this._formatTimestamp(m)}</p>
+            <p class="message">${m.message}</p>
+          </div>`
+        )}
       </div>
     `;
   }
