@@ -16,7 +16,6 @@ export class LitWorkshop extends LitElement {
       flex-direction: column;
       justify-content: flex-start;
       font-size: calc(10px + 2vmin);
-      color: #f0f0f0;
       margin: 0 auto;
     }
 

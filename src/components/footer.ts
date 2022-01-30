@@ -16,10 +16,15 @@ export class LitFooter extends LitElement {
       border-top: 1px solid #3a3a3a;
       width: 100%;
       height: 40px;
+      padding: 8px;
       display: flex;
       box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1);
       align-items: center;
       justify-content: center;
+    }
+    footer:hover {
+      opacity: 0.8;
+      cursor: pointer;
     }
 
     footer > img {
@@ -30,7 +35,8 @@ export class LitFooter extends LitElement {
     }
 
     footer > p {
-      font-size: 20px;
+      font-family: 'Hack', 'Fira Code', monospace;
+      font-size: 18px;
     }
 
     section {
@@ -69,8 +75,8 @@ export class LitFooter extends LitElement {
           `
         : ''}
 
-      <footer>
-        <p @click=${this._toggleChatInputVisible}>Powered by Arcady</p>
+      <footer @click=${this._toggleChatInputVisible}>
+        <p>Made with ❤️ using Lit, Firebase & open web standards</p>
       </footer>
     `;
   }

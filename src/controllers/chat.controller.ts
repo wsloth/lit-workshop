@@ -26,7 +26,11 @@ export class ChatController implements ReactiveController {
   }
 
   hostConnected() {
-    const firebaseConfig = {};
+    // TODO: Add your own firebase config here
+    const firebaseConfig = {
+      apiKey: '',
+      projectId: '',
+    };
     this.app = initializeApp(firebaseConfig);
     this.db = getFirestore(this.app);
 

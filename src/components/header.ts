@@ -11,7 +11,6 @@ export class LitWorkshopHeader extends LitElement {
     header {
       width: 100%;
       height: 80px;
-      background: #222;
       border-bottom: 1px solid #2a2a2a;
       box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1);
       top: 0;
@@ -28,7 +27,6 @@ export class LitWorkshopHeader extends LitElement {
     }
 
     header > h1 {
-      font-family: 'Lato', sans-serif;
       font-weight: bold;
       font-size: 25px;
       flex-grow: 1;

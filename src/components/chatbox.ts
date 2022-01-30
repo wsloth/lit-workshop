@@ -40,7 +40,6 @@ export class LitChatbox extends LitElement {
 
   render() {
     const { messages } = this;
-    console.log('Rerendering', messages);
     return html`
       <div class="chatbox">
         ${map(
