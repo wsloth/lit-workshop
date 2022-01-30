@@ -1,13 +1,14 @@
-# workshop-fe-chat
+# lit-workshop
+
 Simple central system for a workshop where developers will create a tiny frontend to send chat messages to the main system, which will display them.
 
-View the app over here: https://workshop-fe-chat.firebaseapp.com/
+View the app over here: https://workshop-fe-chat.web.app/
 
-Workshop attendees can get started with a blank LitElement application over here: https://webcomponents.dev/edit/oqRYO91ipgpbJH4EECfI/src/index.js
+Workshop attendees can get started with a blank Lit application over here: https://webcomponents.dev/edit/sag8JPGo4PoZSmbNKrYC/index.ts
 
 When people add new messages to the firestore, they are automatically shown "chatbox-style" in the application.
 
-![Preview](/docs/app-screenshot.png "Preview")
+![Preview](/docs/app-screenshot.png 'Preview')
 
 ## How to host this workshop
 
@@ -22,6 +23,7 @@ The workshop host can have the application open on their computer and walk aroun
 Create a new Firebase application and under the database menu, create a new collection called `chat`.
 
 Add a default (welcome) message that can be shown during the start of the workshop. The Firebase schema with types is as following:
+
 ```js
 {
   "username": String,
@@ -30,9 +32,10 @@ Add a default (welcome) message that can be shown during the start of the worksh
 }
 ```
 
-Be sure to set your own `apiKey` and `projectId` in `src/workshop-fe-chat.js` to connect to your own firestore instance.
+Be sure to set your own `apiKey` and `projectId` in `src/controllers/chat.controller.ts` to connect to your own firestore instance.
 
 #### Starting the frontend
+
 ```bash
 $ npm install
 $ npm start
@@ -42,9 +45,11 @@ $ npm start
 
 Pick whatever environment you like: Firebase Hosting is free and easy to use, but you could also use any other static site host.
 
+Just run `npm run build` and deploy the contents of the `dist` directory.
+
 ## Technologies used
 
-- LitElement
+- [Lit.dev](https://lit.dev)
 - Scaffolding by the great [open-wc](https://open-wc.org/) project
 - Firebase realtime database for the chat system
 

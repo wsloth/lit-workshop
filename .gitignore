@@ -18,7 +18,8 @@
 # build
 /_site/
 /dist/
+/build/
 
-
-.firebase
-firebase-debug.log
+storybook-static
+custom-elements.json
+.firebase/hosting.ZGlzdA.cache

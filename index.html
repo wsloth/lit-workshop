@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <meta name="Description" content="Put your description here." />
     <base href="/" />
 
@@ -11,22 +14,24 @@
       body {
         margin: 0;
         padding: 0;
-        font-family: 'Nunito', sans-serif;
-        background-color: #ededed;
+        font-family: sans-serif;
+        background-color: #fff;
+        color: #222;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        body {
+          color: #eee;
+          background: #222;
+        }
       }
     </style>
-    <title>Frontend Workshop - Chat</title>
-
-    <link
-      href="https://fonts.googleapis.com/css?family=Lato:700|Nunito&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+    <title>lit-workshop</title>
   </head>
-  <body>
-    <workshop-fe-chat></workshop-fe-chat>
 
-    <script type="module" src="./src/workshop-fe-chat.js"></script>
+  <body>
+    <lit-workshop></lit-workshop>
+
+    <script type="module" src="./build/src/lit-workshop.js"></script>
   </body>
 </html>
